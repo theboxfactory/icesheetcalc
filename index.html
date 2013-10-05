@@ -29,9 +29,32 @@
     </div>
     <div class="container" ng-controller="iceCalcCtrl">
       <div class="jumbotron">
-        <p>Length Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetLength"/>&nbsp;km </p>
-        <p>Width Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetWidth"/>&nbsp;km </p>
-        <p>Depth Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetDepth"/>&nbsp;km </p>
+        <table>
+          <tr>
+            <td>
+              Length Of Ice Sheet:
+            <td>
+            <td>
+              <input type="number" ng-model="sheetLength"/>&nbsp;km
+            <td>
+          <tr>
+          <tr>
+            <td>
+              Width Of Ice Sheet:
+            <td>
+            <td>
+              <input type="number" ng-model="sheetWidth"/>&nbsp;km
+            <td>
+          <tr>
+          <tr>
+            <td>
+              Depth Of Ice Sheet:
+            <td>
+            <td>
+              <input type="number" ng-model="sheetDepth"/>&nbsp;km
+            <td>
+          <tr>
+        </table>
       </div>
       <div class="jumbotron">
         <p>Total weight of ice sheet: {{totalWeightTons | number}} tonnes </p>
