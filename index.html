@@ -22,6 +22,14 @@
   <body ng-app>
     <div ng-controller="iceCalcCtrl">
       <h1>Ice Sheet Calculator</h1>
+      <p>Length Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetLength"/>&nbsp;km </p>
+      <p>Width Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetWidth"/>&nbsp;km </p>
+      <p>Depth Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetDepth"/>&nbsp;km </p>
+      <hr/>
+      <p>Total weight of ice sheet: {{totalWeightTons | number}} tonnes </p>
+      <p>Total weight of ice sheet: {{totalWeightGigaTons | number}} gigatonnes </p>
+      <hr/>
+      <p>If <select ng-model="percetageMelts" ng-options="i for i in items"></select>% melts, the sea will rise by {{seaRise}} cm </p>
     </div>    
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -30,11 +38,32 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
 
     <script>
       var iceCalcCtrl = function($scope) {
+ 
+        //  Set initial ice sheet dimensions
+        $scope.sheetLength = 2700;
+        $scope.sheetWidth = 900;
+        $scope.sheetDepth = 3;
 
+        //  Populate percentage dropdown
+        $scope.items = function() {
+          var percentages = [];
+          for(var i = 1; i <= 100; i++) {
+            percentages.push(i);
+          }
+          return percentages;
+        }();
+
+        //  Call this function if any input values change
+        var recalc = function() {
+          $scope.totalWeightGigaTons = $scope.sheetLength * $scope.sheetWidth *  $scope.sheetDepth;
+          $scope.totalWeightTons = $scope.totalWeightGigaTons * 1000000000;
+          $scope.seaRise = $scope.percetageMelts;
+        }
+        //  
+        $scope.$watch('sheetLength + sheetWidth + sheetDepth + percetageMelts', recalc);
       }
     </script>
   </body>
