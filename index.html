@@ -14,22 +14,29 @@
 
     <style type="text/css">
       body {
-        margin: 16px;
+        padding-top: 50px;
       } 
     </style>
 
   </head>
   <body ng-app>
-    <div ng-controller="iceCalcCtrl">
-      <h1>Ice Sheet Calculator</h1>
-      <p>Length Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetLength"/>&nbsp;km </p>
-      <p>Width Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetWidth"/>&nbsp;km </p>
-      <p>Depth Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetDepth"/>&nbsp;km </p>
-      <hr/>
-      <p>Total weight of ice sheet: {{totalWeightTons | number}} tonnes </p>
-      <p>Total weight of ice sheet: {{totalWeightGigaTons | number}} gigatonnes </p>
-      <hr/>
-      <p>If <select ng-model="percetageMelts" ng-options="i for i in items"></select>% melts, the sea will rise by {{seaRise}} cm </p>
+    <div class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">Ice Sheet Calculator</a>
+        </div>
+      </div>
+    </div>
+    <div class="container" ng-controller="iceCalcCtrl">
+      <div class="jumbotron">
+        <p>Length Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetLength"/>&nbsp;km </p>
+        <p>Width Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetWidth"/>&nbsp;km </p>
+        <p>Depth Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetDepth"/>&nbsp;km </p>
+      </div>
+      <div class="jumbotron">
+        <p>Total weight of ice sheet: {{totalWeightTons | number}} tonnes </p>
+        <p>Total weight of ice sheet: {{totalWeightGigaTons | number}} gigatonnes </p>
+      </div>
     </div>    
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -60,10 +67,9 @@
         var recalc = function() {
           $scope.totalWeightGigaTons = $scope.sheetLength * $scope.sheetWidth *  $scope.sheetDepth;
           $scope.totalWeightTons = $scope.totalWeightGigaTons * 1000000000;
-          $scope.seaRise = $scope.percetageMelts;
         }
         //  
-        $scope.$watch('sheetLength + sheetWidth + sheetDepth + percetageMelts', recalc);
+        $scope.$watch('sheetLength + sheetWidth + sheetDepth', recalc);
       }
     </script>
   </body>
