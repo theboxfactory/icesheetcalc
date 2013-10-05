@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ice Sheet Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+      } 
+    </style>
+
+  </head>
+  <body ng-app>
+    <div class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">Ice Sheet Calculator</a>
+        </div>
+      </div>
+    </div>
+    <div class="container" ng-controller="iceCalcCtrl">
+      <div class="jumbotron">
+        <p>Length Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetLength"/>&nbsp;km </p>
+        <p>Width Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetWidth"/>&nbsp;km </p>
+        <p>Depth Of Ice Sheet:&nbsp;<input type="number" ng-model="sheetDepth"/>&nbsp;km </p>
+      </div>
+      <div class="jumbotron">
+        <p>Total weight of ice sheet: {{totalWeightTons | number}} tonnes </p>
+        <p>Total weight of ice sheet: {{totalWeightGigaTons | number}} gigatonnes </p>
+      </div>
+    </div>    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+
+    <script>
+      var iceCalcCtrl = function($scope) {
+ 
+        //  Set initial ice sheet dimensions
+        $scope.sheetLength = 2700;
+        $scope.sheetWidth = 900;
+        $scope.sheetDepth = 3;
+
+        //  Populate percentage dropdown
+        $scope.items = function() {
+          var percentages = [];
+          for(var i = 1; i <= 100; i++) {
+            percentages.push(i);
+          }
+          return percentages;
+        }();
+
+        //  Call this function if any input values change
+        var recalc = function() {
+          $scope.totalWeightGigaTons = $scope.sheetLength * $scope.sheetWidth *  $scope.sheetDepth;
+          $scope.totalWeightTons = $scope.totalWeightGigaTons * 1000000000;
+        }
+        //  
+        $scope.$watch('sheetLength + sheetWidth + sheetDepth', recalc);
+      }
+    </script>
+  </body>
+</html>
+
